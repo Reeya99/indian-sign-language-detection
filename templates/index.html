@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ISL Translator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Indian Sign Language Translator</h1>
+    <p class="tagline">Sign in front of your webcam &mdash; letters are recognized live.</p>
+  </header>
+
+  <main class="layout">
+    <!-- Left: video + overlay -->
+    <section class="stage">
+      <div class="video-wrap">
+        <video id="video" autoplay playsinline muted></video>
+        <canvas id="overlay"></canvas>
+        <div id="camOff" class="cam-off">Camera is off</div>
+      </div>
+
+      <div class="controls">
+        <button id="toggleCam" class="btn btn-primary">Start camera</button>
+        <label class="toggle">
+          <input type="checkbox" id="toggleTop3" />
+          Show top-3 debug
+        </label>
+      </div>
+
+      <div id="statusLine" class="status status-idle">Camera is off</div>
+    </section>
+
+    <!-- Right: prediction + info -->
+    <aside class="panel">
+      <div class="card prediction-card">
+        <div class="pred-label-wrap">
+          <span class="pred-caption">Current sign</span>
+          <span id="predLabel" class="pred-label">&mdash;</span>
+        </div>
+        <div class="conf-row">
+          <div class="conf-bar-track">
+            <div id="confBar" class="conf-bar-fill"></div>
+          </div>
+          <span id="confText" class="conf-text">0%</span>
+        </div>
+      </div>
+
+      <div id="top3Card" class="card top3-card hidden">
+        <h2>Top 3 predictions</h2>
+        <ul id="top3List" class="top3-list"></ul>
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    window.ISL_CONFIG = { threshold: 0.60, intervalMs: 120, smoothN: 5 };
+  </script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

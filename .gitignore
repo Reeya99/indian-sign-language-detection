@@ -1,0 +1,24 @@
+# Virtual environment
+venv/
+env/
+ENV/
+.env
+
+# Python byte-code and cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Raw image dataset (42,000+ images from Kaggle - download separately)
+Indian/
+
+# Temporary and backup files
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+
+# IDE configurations
+.vscode/
+.idea/
+

@@ -1,0 +1,17 @@
+# NOTE: mediapipe 0.10.14 is the last release that ships the legacy
+# mp.solutions.hands API this project uses. Newer 0.10.x (e.g. 0.10.35)
+# removed mp.solutions. Do NOT bump mediapipe above 0.10.14.
+#
+# mediapipe 0.10.14 can pull in jax as a dependency, which upgrades numpy
+# to 2.x and ml-dtypes, and that breaks TensorFlow 2.15. We therefore pin
+# numpy<2.0 and ml-dtypes~=0.3.1 to keep TF working. See README.
+mediapipe==0.10.14
+tensorflow>=2.15,<2.16
+numpy<2.0
+ml-dtypes~=0.3.1
+opencv-python
+pandas
+scikit-learn
+matplotlib
+flask
+tqdm

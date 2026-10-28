@@ -1,0 +1,154 @@
+:root {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --card: #273449;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --good: #22c55e;
+  --warn: #f59e0b;
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.topbar {
+  padding: 20px 24px 8px;
+  text-align: center;
+}
+.topbar h1 { margin: 0; font-size: 1.6rem; }
+.tagline { margin: 4px 0 0; color: var(--muted); }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+  gap: 20px;
+  padding: 16px 24px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---- Video stage ---- */
+.video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #000;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+#video, #overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+/* Mirror the displayed video (selfie view). The server returns landmarks in
+   flipped-frame space, so the overlay is NOT mirrored and still lines up. */
+#video { object-fit: cover; transform: scaleX(-1); }
+#overlay { pointer-events: none; }
+
+.cam-off {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 1.1rem;
+  background: #0b1220;
+}
+.cam-off.hidden { display: none; }
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.toggle { color: var(--muted); display: flex; align-items: center; gap: 6px; cursor: pointer; }
+
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.05s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--accent-strong); color: #04293b; }
+.btn-primary:hover { background: var(--accent); }
+.btn-primary.stop { background: #ef4444; color: #fff; }
+
+.status {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  background: var(--card);
+}
+.status-idle { color: var(--muted); }
+.status-nohand { color: var(--warn); }
+.status-detecting { color: var(--accent); }
+.status-good { color: var(--good); }
+
+/* ---- Right panel ---- */
+.panel { display: flex; flex-direction: column; gap: 16px; }
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.card h2 { margin: 0 0 10px; font-size: 1.05rem; }
+
+.prediction-card { text-align: center; }
+.pred-caption { display: block; color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.pred-label {
+  display: block;
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--accent);
+}
+.conf-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.conf-bar-track {
+  flex: 1;
+  height: 12px;
+  background: #0b1220;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.conf-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.12s linear, background 0.2s;
+}
+.conf-text { min-width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
+
+.top3-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.top3-list li { display: flex; align-items: center; gap: 10px; }
+.top3-rank { font-weight: 700; width: 1.4em; color: var(--muted); }
+.top3-name { width: 2em; font-weight: 700; }
+.top3-track { flex: 1; height: 8px; background: #0b1220; border-radius: 4px; overflow: hidden; }
+.top3-fill { height: 100%; background: var(--accent-strong); }
+.top3-pct { min-width: 46px; text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+
+.hidden { display: none; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+}
